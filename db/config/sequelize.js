@@ -16,7 +16,8 @@ const sequelize = new Sequelize(
     host: NEXT_PUBLIC_DB_HOST,
     dialect: NEXT_PUBLIC_DB_DIALECT,
     logging: false,
+    dialectModule: require("mysql2"),
   }
 );
 
-module.exports=sequelize
+module.exports = sequelize;
