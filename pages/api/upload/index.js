@@ -1,7 +1,5 @@
-
 import nc from "next-connect";
-import {  uploadTextArea } from "../../../config/multer.js";
-
+import { uploadTextArea } from "../../../config/multer.js";
 
 const handler = nc({
   onError: (err, req, res, next) => {
@@ -12,15 +10,13 @@ const handler = nc({
   },
 });
 
-
 //[POST]
 
 handler.use(uploadTextArea.single("upload")).post(async (req, res) => {
   try {
-    console.log(req.headers.origin)
     res.status(200).json({
       uploaded: true,
-      url: req.headers.origin+"/" + req.file.filename,
+      url:process.env.VERCEL_URL + "/" + req.file.filename,
     });
   } catch (err) {
     res.status(500).end("Server error: " + err.stack);

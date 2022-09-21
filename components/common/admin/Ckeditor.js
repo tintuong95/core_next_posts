@@ -11,7 +11,7 @@ const Ckeditor = ({ setValue, defaultValue }) => {
       editor={Editor}
       config={{
         ckfinder: {
-          // Upload the images to the server using the CKFinder QuickUpload command.
+          
           uploadUrl: "/api/upload",
           withCredentials: true,
         },
