@@ -42,7 +42,7 @@ const TableNews = ({ data,offset }) => {
                   >
                     <img
                       className="img-card-base rounded"
-                      src={"http://localhost:3000/" + item.image}
+                      src={process.env.NEXT_PUBLIC_URL + "/" + item.image}
                       alt="Picture of the author"
                     />
                   </td>
@@ -76,7 +76,7 @@ const TableNews = ({ data,offset }) => {
                           confirmButtonText: "Delete",
                         }).then((result) => {
                           if (result.isConfirmed) {
-                            dispatch(actionNewsDelete({ id: item.id,offset }));
+                            dispatch(actionNewsDelete({ id: item.id, offset }));
                           }
                         });
                       }}

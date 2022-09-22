@@ -50,7 +50,7 @@ const Create = () => {
       <form action="" onSubmit={onSubmit}>
         <div className="mb-6">
           <label
-            for="base-input"
+        
             className="block mb-2 text-base font-medium text-gray-900"
           >
             Title
@@ -64,7 +64,7 @@ const Create = () => {
 
         <div className="mb-6">
           <label
-            for="base-input"
+        
             className="block mb-2 text-base font-medium text-gray-900"
           >
             Categories
@@ -83,7 +83,7 @@ const Create = () => {
         </div>
         <div className="mb-6">
           <label
-            for="base-input"
+     
             className="block mb-2 text-base font-medium text-gray-900"
           >
             Image
@@ -99,7 +99,7 @@ const Create = () => {
 
         <div className="mb-6">
           <label
-            for="base-input"
+        
             className="block mb-2 text-base font-medium text-gray-900"
           >
             Description
@@ -112,7 +112,7 @@ const Create = () => {
         </div>
         <div className="mb-6">
           <label
-            for="base-input"
+        
             className="block mb-2 text-base font-medium text-gray-900"
           >
             Content

@@ -16,7 +16,7 @@ handler.use(uploadTextArea.single("upload")).post(async (req, res) => {
   try {
     res.status(200).json({
       uploaded: true,
-      url:process.env.VERCEL_URL + "/" + req.file.filename,
+      url: process.env.VERCEL_URL + "/" + req.file.filename,
     });
   } catch (err) {
     res.status(500).end("Server error: " + err.stack);

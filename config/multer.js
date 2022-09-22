@@ -8,7 +8,12 @@ const storage = (offset) => {
       destination: function (req, file, cb) {
         var ext = path.extname(file.originalname);
 
-        if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg") {
+        if (
+          ext !== ".png" &&
+          ext !== ".jpg" &&
+          ext !== ".jpeg" &&
+          ext !== ".PNG"
+        ) {
           return cb(
             new Error("Only images and zip are allowed"),
             "Error file type!"

@@ -1,6 +1,7 @@
 import nc from "next-connect";
 import Category from "../../../db/models/category.js";
 import News from "../../../db/models/news.js";
+import { role } from "../../../middleware/role.js";
 import toParam from "../../../utils/param.js";
 
 
@@ -19,9 +20,9 @@ const handler = nc({
 
 async function existCategory(req, res, next) {
  try {
-   const { param } = req.query;
+  console.log(req.query["slug"][0], "req");
    const response = await Category.findOne({
-     where: { id: param },
+     where: { id: req.query["slug"][0] },
    });
    if (response) {
      res.locals = response;
@@ -47,7 +48,7 @@ handler.get("/api/category",async (req, res) => {
 });
 
 //[POST]
-handler.post("/api/category", async (req, res) => {
+handler.post("/api/category", role, async (req, res) => {
   try {
     const response = await Category.create({
       ...req.body,
@@ -62,7 +63,7 @@ handler.post("/api/category", async (req, res) => {
 
 
 //[GET]:/id
-handler.get("/api/category", existCategory, async (req, res) => {
+handler.get("/api/category/:id", existCategory, async (req, res) => {
   try {
     res.json({ data: res.locals });
   } catch (err) {
@@ -73,7 +74,7 @@ handler.get("/api/category", existCategory, async (req, res) => {
 
 
 //[PUT]:id
-handler.put("/api/category", existCategory,async (req, res) => {
+handler.put("/api/category/:id", role, existCategory, async (req, res) => {
   try {
     res.locals.update(req.body);
     res.locals.save();
@@ -84,7 +85,7 @@ handler.put("/api/category", existCategory,async (req, res) => {
 });
 
 //[DELETE]:id
-handler.delete("/api/category", existCategory, async (req, res) => {
+handler.delete("/api/category/:id", role, existCategory, async (req, res) => {
   try {
     res.locals.destroy();
     res.status(201).end("Successfully updated");

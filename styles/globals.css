@@ -34,3 +34,12 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.ml_12px {
+    margin-left: 12px !important;
+}
+
+.logo {
+    height: 40px !important;
+    margin-right: 10px;
+}

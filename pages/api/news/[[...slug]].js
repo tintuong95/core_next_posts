@@ -1,10 +1,14 @@
 import multer from "multer";
 import nc from "next-connect";
+import sharp from "sharp";
+import fs from "fs-extra";
+import path from "path";
 import { upload } from "../../../config/multer.js";
 import News from "../../../db/models/news.js";
 import Category from "../../../db/models/category.js";
 import toParam from "../../../utils/param.js";
 import randomId from "../../../utils/randomId.js";
+import { role } from "../../../middleware/role.js";
 
 const handler = nc({
   onError: (err, req, res, next) => {
@@ -38,21 +42,31 @@ handler.get("/api/news", async (req, res) => {
   try {
     const { limit = 10, offset = 0 } = req.query;
 
-    let query={}
+    let query = {};
+    let order = [];
 
-    Object.entries(req.query).forEach(item=>{
-      if(item[0] != "limit" && item[0] !="offset"){
-        query[item[0]] = item[1] 
+    Object.entries(req.query).forEach((item) => {
+      if (
+        item[0] != "limit" &&
+        item[0] != "offset" &&
+        item[1] != "DESC" &&
+        item[1] != "ASC"
+      ) {
+        query[item[0]] = item[1];
       }
-    })
-   
-
+    });
+    Object.entries(req.query).forEach((item) => {
+      if (item[1] == "DESC" || item[1] == "ASC") {
+        order.push([item[0], item[1]]);
+      }
+    });
 
     const response = await News.findAll({
       where: query,
       limit: Number(limit),
       offset: Number(offset),
       include: { model: Category, as: "category" },
+      order: order,
     });
     res.json({ data: response });
   } catch (err) {
@@ -72,6 +86,7 @@ handler.get("/api/news/:id", existNews, async (req, res) => {
 //[PUT]:id
 handler.put(
   "/api/news/:id",
+   role,
   existNews,
   upload.single("image"),
   async (req, res) => {
@@ -91,7 +106,7 @@ handler.put(
 
 //[POST]
 
-handler.post("/api/news", upload.single("image"), async (req, res) => {
+handler.post("/api/news", role, upload.single("image"), async (req, res) => {
   try {
     //convert image
 
@@ -106,18 +121,19 @@ handler.post("/api/news", upload.single("image"), async (req, res) => {
 
     const response = await News.create({
       ...req.body,
-      image: req.file.filename,
+      image: "resize_" + req.file.filename,
       param: toParam(req.body.title) + "-" + randomId(4),
     });
- fs.removeSync(req.file.path);
+    fs.removeSync(req.file.path);
     res.status(201).end("Successfully created");
   } catch (err) {
+    console.log(err);
     res.status(500).end("Server error: " + err.stack);
   }
 });
 
 //[DELETE]
-handler.delete("/api/news/:id", existNews, async (req, res) => {
+handler.delete("/api/news/:id", role, existNews, async (req, res) => {
   try {
     res.locals.destroy();
 

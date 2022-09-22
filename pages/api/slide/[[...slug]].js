@@ -4,6 +4,9 @@ import sharp from "sharp";
 import fs from "fs-extra";
 import { upload } from "../../../config/multer.js";
 import Slide from "../../../db/models/slide.js";
+import Cookies from "cookies";
+import { role } from "../../../middleware/role.js";
+
 
 const handler = nc({
   onError: (err, req, res, next) => {
@@ -14,6 +17,9 @@ const handler = nc({
     res.status(404).end("Not Found!");
   },
 });
+
+
+
 
 //EXISTED
 
@@ -32,6 +38,8 @@ async function existSlide(req, res, next) {
   }
 }
 
+
+
 //[GET]:/id
 handler.get("/api/slide/:id", existSlide, async (req, res) => {
   try {
@@ -42,7 +50,7 @@ handler.get("/api/slide/:id", existSlide, async (req, res) => {
 });
 
 //[DELETE]:id
-handler.delete("/api/slide/:id", existSlide, async (req, res) => {
+handler.delete("/api/slide/:id", role, existSlide, async (req, res) => {
   try {
     res.locals.destroy();
     res.status(201).end("Successfully updated");
@@ -62,7 +70,7 @@ handler.get("/api/slide", async (req, res) => {
 });
 
 //[POST]
-handler.post("/api/slide", upload.single("image"), async (req, res) => {
+handler.post("/api/slide", role, upload.single("image"), async (req, res) => {
   try {
     //convert image
 

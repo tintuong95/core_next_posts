@@ -27,6 +27,7 @@ export const sliceAdmin = createSlice({
     builder.addCase(
       actionAdminLogin.fulfilled,
       (state, { meta, payload, type }) => {
+        console.log
         state.login = true;
         state.info=payload.data
         state.router.push("/admin");

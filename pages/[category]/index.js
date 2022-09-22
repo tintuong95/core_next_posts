@@ -11,12 +11,14 @@ import {
   actionPostRecommends,
 } from "../../stores/actions/actionNews.js";
 import { addBreadCrumb } from "../../stores/reducer/reducerLocal.js";
+import ads from "../../public/ads.png"
+import Image from "next/image.js";
 
 const Category = () => {
   //**** */
   const { query } = useRouter();
   const dispatch = useDispatch();
-  const [offset, setOffset] = useState(10);
+  const [offset, setOffset] = useState(8);
   const { breadCrumbs } = useSelector((state) => state.reducerLocal);
   const { postCategories, postRecomments } = useSelector(
     (state) => state.reducerNews
@@ -24,25 +26,34 @@ const Category = () => {
 
   const onClickSeeMore = () => {
     if (!query.id) {
-      dispatch(actionPostCategoryAdd({ limit: 10, offset: 0 }));
+      dispatch(actionPostCategoryAdd({ limit: 8, offset: offset,updatedAt:"DESC" }));
     } else {
       dispatch(
-        actionPostCategoryAdd({ limit: 10, offset: 0, idCategory: query.id })
+        actionPostCategoryAdd({ limit: 8, offset, idCategory: query.id ,updatedAt:"DESC"})
       );
     }
-    setOffset(offset + 5);
+    setOffset(offset + 8);
   };
- 
+
   useEffect(() => {
-    dispatch(actionPostRecommends({ limit: 4 }));
+    dispatch(actionPostRecommends({ limit: 4 ,updatedAt:"DESC"}));
     dispatch(addBreadCrumb([query.name]));
+    setOffset(8);
   }, [query]);
+
   useEffect(() => {
     if (!query.id) {
-      dispatch(actionPostCategories({ limit: 10, offset: 0 }));
+      dispatch(
+        actionPostCategories({ limit: 8, offset: 0, updatedAt: "DESC" })
+      );
     } else {
       dispatch(
-        actionPostCategories({ limit: 10, offset: 0, idCategory: query.id })
+        actionPostCategories({
+          limit: 8,
+          offset: 0,
+          idCategory: query.id,
+          updatedAt: "DESC",
+        })
       );
     }
   }, [query]);
@@ -67,11 +78,14 @@ const Category = () => {
         </div>
         <div className="col-span-2 ">
           <div className="mb-6">
-            <img src="https://picsum.photos/450/300" alt="" />
+            <p className="font-bold text-xl mb-4 pb-1  border-b-2 border-b-green-300 inline-block ">
+              Ads
+            </p>
+            <Image className="rounded-xl shadow-xl" src={ads} alt="" />
           </div>
           <div className="bg-gray-50 p-6">
             <p className="font-bold text-xl mb-8 pb-1  border-b-2 border-b-green-300 inline-block ">
-              Tin nổi bật
+              Tin đề xuất
             </p>
             {postRecomments?.map((item, index) => (
               <CardSmall {...item} />

@@ -7,25 +7,23 @@ import { actionNewsGets } from "../../../stores/actions/actionNews.js";
 
 const HomeAdmin = () => {
   const dispatch = useDispatch();
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState(6);
   const { posts } = useSelector((state) => state.reducerNews);
   const { breadCrumbs } = useSelector((state) => state.reducerLocal);
   const onNext = () => {
-    setOffset(offset + 6);
     dispatch(actionNewsGets({ limit: 6, offset }));
+    setOffset(offset + 6);
   };
 
   const onPrevious = () => {
-    if (offset == 0) {
-      dispatch(actionNewsGets({ limit: 6, offset }));
-    } else {
-      setOffset(offset - 6);
-      dispatch(actionNewsGets({ limit: 6, offset: offset - 6 }));
+    if (offset != 0) {
+      setOffset(offset - 12);
+      dispatch(actionNewsGets({ limit: 6, offset, updatedAt: "DESC" }));
     }
   };
 
   useEffect(() => {
-    dispatch(actionNewsGets({ limit: 6, offset }));
+    dispatch(actionNewsGets({ limit: 6, offset:0, updatedAt: "DESC" }));
   }, []);
 
   return (
@@ -34,18 +32,18 @@ const HomeAdmin = () => {
       <div className="my-6"></div>
       <TableNews data={posts} offset={offset} />
       <div className="flex justify-center mt-4">
-        <a
+        <button
           onClick={onPrevious}
           className="m-2 bg-blue-100 py-2 px-4 rounded border border-blue-300"
         >
           Previous
-        </a>
-        <a
+        </button>
+        <button
           onClick={onNext}
           className="m-2 bg-blue-100 py-2 px-4 rounded border border-blue-300"
         >
           Next
-        </a>
+        </button>
       </div>
     </>
   );

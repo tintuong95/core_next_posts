@@ -19,13 +19,13 @@ const AdminLayout = ({ children }) => {
 
   useEffect(() => {
     if (!login) {
-      // router.push("/admin/login");
+      router.push("/admin/login");
     }
-  }, []);
+  }, [login]);
 
   return (
     <>
-      <Head  data={info}/>
+      <Head data={info} />
       <div className="container m-auto grid grid-cols-6">
         <div className="col-span-1 border-r">
           <Navbar />

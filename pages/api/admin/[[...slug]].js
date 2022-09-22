@@ -81,16 +81,16 @@ handler.put("/api/admin/update", async (req, res) => {
 });
 
 //[get by cookies]
-handler.get("api/admin/profile", async (req, res) => {
-  try {
-    const cookie = req.headers.cookie;
-    if (cookie) {
-      return res.status(200).end("Successfully profile");
-    }
-    return res.status(403).end("Fails profile");
-  } catch (err) {
-    res.status(500).end("Server error: " + err.stack);
-  }
-});
+// handler.get("api/admin/profile", async (req, res) => {
+//   try {
+//     const cookie = req.headers.cookie;
+//     if (cookie) {
+//       return res.status(200).end("Successfully profile");
+//     }
+//     return res.status(403).end("Fails profile");
+//   } catch (err) {
+//     res.status(500).end("Server error: " + err.stack);
+//   }
+// });
 
 export default handler;

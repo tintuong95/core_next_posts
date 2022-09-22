@@ -9,6 +9,8 @@ import {
 import { actionSlideDelete } from "../../../stores/actions/actionSlide.js";
 
 const TableSlide = ({ data }) => {
+
+
   const dispatch = useDispatch();
 
   return (
@@ -33,12 +35,13 @@ const TableSlide = ({ data }) => {
             </tr>
           </thead>
           <tbody>
-            {data.map((item, index) => (
+            {data?.map((item, index) => (
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <td className="py-4 px-6">
                   <img
+                    className="rounded"
                     style={{ width: 150 }}
-                    src={"http://localhost:3000/" + item.image}
+                    src={process.env.NEXT_PUBLIC_URL+"/" + item.image}
                     alt=""
                   />
                 </td>

@@ -39,6 +39,7 @@ const Param = ({ post, recommends }) => {
             <span className="ml-3">
               {new Date(post.updatedAt).toLocaleDateString("vi-VN")}
             </span>
+            <span className="ml-3">{post.views} views</span>
           </p>
           <p className="my-4 font-semibold">{post.description}</p>
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
