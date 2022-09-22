@@ -1,0 +1,45 @@
+version: "3.7"
+
+services:
+  app:
+    image: node:16-alpine
+    command: sh -c "yarn install && yarn add sequelize-cli && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && yarn run dev" 
+    ports:
+      - 3000:3000
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      NEXT_PUBLIC_DB_USERNAME: root
+      NEXT_PUBLIC_DB_PASSWORD: secret
+      NEXT_PUBLIC_DB_NAME: newspaper
+      NEXT_PUBLIC_DB_HOST: mysql
+      NEXT_PUBLIC_DB_DIALECT: mysql
+      NEXT_PUBLIC_URL: http://localhost:3000
+
+  mysql:
+    image: mysql:5.7
+    command: --init-file /data/application/init.sql
+    volumes:
+        - ./init.sql:/data/application/init.sql
+
+    ports:
+      - "3306:3306"
+    environment:
+
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: newspaper
+
+      MYSQL_PASSWORD: secret
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    depends_on:
+      - mysql
+volumes:
+  mysql-data:
