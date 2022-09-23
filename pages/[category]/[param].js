@@ -10,12 +10,12 @@ import ClientLayout from "../../components/layouts/ClientLayout.js";
 
 export async function getServerSideProps({ query }) {
   const resPostDetail = await axios({
-    url: process.env.NEXT_PUBLIC_URL + "/api/news?param=" + query.param,
+    url: process.env.VERCEL_URL + "/api/news?param=" + query.param,
     method: "GET",
   }).then((response) => response.data);
 
   const resPostRecommends = await axios({
-    url: process.env.NEXT_PUBLIC_URL + "/api/news?limit=5&offset=0",
+    url: process.env.VERCEL_URL + "/api/news?limit=5&offset=0",
     method: "GET",
   }).then((response) => response.data);
 
