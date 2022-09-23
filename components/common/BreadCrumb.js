@@ -22,7 +22,7 @@ const BreadCrumb = ({data}) => {
             </a>
           </li>
           {data.map((item, index) => (
-            <li>
+            <li key={item.id}>
               <div className="flex items-center" bis_skin_checked="1">
                 <svg
                   className="w-6 h-6 text-gray-400"

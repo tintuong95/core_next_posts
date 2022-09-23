@@ -1,0 +1,1 @@
+{"c":["pages/_app","pages/index","pages/[category]","webpack"],"r":["pages/[category]"],"m":["./components/common/BreadCrumb.js","./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?absolutePagePath=E%3A%5Cevanto%5C1.news%20paper%5Capp%5Cpages%5C%5Bcategory%5D%5Cindex.js&page=%2F%5Bcategory%5D!","./pages/[category]/index.js"]}

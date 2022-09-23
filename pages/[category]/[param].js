@@ -1,4 +1,6 @@
 import axios from "axios";
+import Head from "next/head.js";
+import { useRouter } from "next/router.js";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -27,9 +29,21 @@ export async function getServerSideProps({ query }) {
 
 const Param = ({ post, recommends }) => {
   const { breadCrumbs } = useSelector((state) => state.reducerLocal);
-
+  const router = useRouter();
+  console.log(router.asPath);
   return (
     <>
+      <Head>
+        <meta name="keywords" content={post.title} />
+        <meta name="description" content={post.description} />
+        <meta
+          property="og:url"
+          itemprop="url"
+          content={process.env.NEXT_PUBLIC_URL + router.asPath}
+        />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.description} />
+      </Head>
       <BreadCrumb data={breadCrumbs} />
       <div className="grid grid-cols-5 gap-8 my-6">
         <div className="col-span-3">
@@ -49,7 +63,7 @@ const Param = ({ post, recommends }) => {
       <div className=" mb-8 bg-gray-50 p-6">
         <div className="grid grid-cols-5 gap-6 ">
           {recommends?.map((item, index) => (
-            <CardMedium {...item} />
+            <CardMedium key={item.id} {...item} />
           ))}
         </div>
       </div>
