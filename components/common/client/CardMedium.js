@@ -9,7 +9,7 @@ const CardMedium = ({id,title,image,param,category}) => {
       <a href="#" className="flex flex-col items-center    ">
         <img
           className=" w-100 rounded   image-card-medium object-cover "
-          src={"http://localhost:3000/" + image}
+          src={image}
           alt=""
         />
         <div
