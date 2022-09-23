@@ -41,7 +41,7 @@ const TableSlide = ({ data }) => {
                   <img
                     className="rounded"
                     style={{ width: 150 }}
-                    src={process.env.NEXT_PUBLIC_URL+"/" + item.image}
+                    src={process.env.NEXT_PUBLIC_VERCEL_URL + "/" + item.image}
                     alt=""
                   />
                 </td>

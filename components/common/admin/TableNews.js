@@ -5,9 +5,12 @@ import { useDispatch } from "react-redux";
 import { actionNewsDelete } from "../../../stores/actions/actionNews.js";
 import { addBreadCrumb } from "../../../stores/reducer/reducerLocal.js";
 import Swal from "sweetalert2";
+import { useRouter } from "next/router.js";
 
 const TableNews = ({ data,offset }) => {
   const dispatch = useDispatch();
+  const router=useRouter()
+  console.log(router)
   return (
     <>
       <div className="overflow-x-auto relative" bis_skin_checked="1">
@@ -42,7 +45,7 @@ const TableNews = ({ data,offset }) => {
                   >
                     <img
                       className="img-card-base rounded"
-                      src={process.env.NEXT_PUBLIC_URL + "/" + item.image}
+                      src={ process.env.NEXT_PUBLIC_VERCEL_URL+"/"+item.image}
                       alt="Picture of the author"
                     />
                   </td>
