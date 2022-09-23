@@ -24,7 +24,7 @@ const Slide = ({data}) => {
       >
         {data?.map((item, index) => (
           <SwiperSlide>
-            <img className='rounded' src={"http://localhost:3000/"+item.image} alt="" />
+            <img className='rounded' src={item.image} alt="" />
           </SwiperSlide>
         ))}
 
