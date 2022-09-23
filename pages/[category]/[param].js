@@ -11,8 +11,8 @@ import ClientLayout from "../../components/layouts/ClientLayout.js";
 export async function getServerSideProps({ query }) {
 
   console.log(
-    process.env.NEXT_PUBLIC_VERCEL_URL_PROTOCOL+
-    process.env.NEXT_PUBLIC_VERCEL_URL
+    process.env.NEXT_PUBLIC_VERCEL_URL_PROTOCOL +
+      process.env.NEXT_PUBLIC_VERCEL_URL
   );
   const resPostDetail = await axios({
     url:
