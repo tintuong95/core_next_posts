@@ -45,7 +45,12 @@ const TableNews = ({ data,offset }) => {
                   >
                     <img
                       className="img-card-base rounded"
-                      src={ process.env.NEXT_PUBLIC_VERCEL_URL+"/"+item.image}
+                      src={
+                        process.env.NEXT_PUBLIC_VERCEL_URL_PROTOCOL +
+                        process.env.NEXT_PUBLIC_VERCEL_URL +
+                        "/" +
+                        item.image
+                      }
                       alt="Picture of the author"
                     />
                   </td>

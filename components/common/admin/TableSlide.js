@@ -9,8 +9,6 @@ import {
 import { actionSlideDelete } from "../../../stores/actions/actionSlide.js";
 
 const TableSlide = ({ data }) => {
-
-
   const dispatch = useDispatch();
 
   return (
@@ -41,7 +39,12 @@ const TableSlide = ({ data }) => {
                   <img
                     className="rounded"
                     style={{ width: 150 }}
-                    src={process.env.NEXT_PUBLIC_VERCEL_URL + "/" + item.image}
+                    src={
+                      process.env.NEXT_PUBLIC_VERCEL_URL_PROTOCOL +
+                      process.env.NEXT_PUBLIC_VERCEL_URL +
+                      "/" +
+                      item.image
+                    }
                     alt=""
                   />
                 </td>

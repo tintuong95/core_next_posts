@@ -9,13 +9,24 @@ import CardMedium from "../../components/common/client/CardMedium.js";
 import ClientLayout from "../../components/layouts/ClientLayout.js";
 
 export async function getServerSideProps({ query }) {
+
+  console.log(
+    process.env.NEXT_PUBLIC_VERCEL_URL_PROTOCOL+
+    process.env.NEXT_PUBLIC_VERCEL_URL
+  );
   const resPostDetail = await axios({
-    url: process.env.VERCEL_URL + "/api/news?param=" + query.param,
+    url:
+     
+      process.env.NEXT_PUBLIC_VERCEL_URL_PROTOCOL+
+    process.env.NEXT_PUBLIC_VERCEL_URL+"/api/news?param=" + query.param,
     method: "GET",
   }).then((response) => response.data);
 
   const resPostRecommends = await axios({
-    url: process.env.VERCEL_URL + "/api/news?limit=5&offset=0",
+    url:
+     process.env.NEXT_PUBLIC_VERCEL_URL_PROTOCOL+
+    process.env.NEXT_PUBLIC_VERCEL_URL+
+      "/api/news?limit=5&offset=0",
     method: "GET",
   }).then((response) => response.data);
 
@@ -30,7 +41,7 @@ export async function getServerSideProps({ query }) {
 const Param = ({ post, recommends }) => {
   const { breadCrumbs } = useSelector((state) => state.reducerLocal);
   const router = useRouter();
-  console.log(router.asPath);
+
   return (
     <>
       <Head>
@@ -39,7 +50,11 @@ const Param = ({ post, recommends }) => {
         <meta
           property="og:url"
           itemprop="url"
-          content={process.env.NEXT_PUBLIC_URL + router.asPath}
+          content={
+            process.env.NEXT_PUBLIC_VERCEL_URL_PROTOCOL +
+            process.env.NEXT_PUBLIC_VERCEL_URL +
+            +router.asPath
+          }
         />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description} />

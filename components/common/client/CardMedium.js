@@ -5,6 +5,7 @@ import { addBreadCrumb } from '../../../stores/reducer/reducerLocal.js';
 
 const CardMedium = ({id,title,image,param,category}) => {
   const dispatch=useDispatch()
+
     return (
       <a href="#" className="flex flex-col items-center    ">
         <img
