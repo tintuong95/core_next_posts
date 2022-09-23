@@ -1,1 +1,0 @@
-self.__REACT_LOADABLE_MANIFEST={"admin\\post\\update.js -> ../../../components/common/admin/Ckeditor.js":{"id":"admin\\post\\update.js -> ../../../components/common/admin/Ckeditor.js","files":["static/chunks/components_common_admin_Ckeditor_js.js"]}}
